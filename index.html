@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buyer Action</title>
+</head>
+<body>
+
+<h2>Buyer Action</h2>
+
+<form id="actionForm">
+  <input type="hidden" id="StoreCode">
+  <input type="hidden" id="Store">
+  <input type="hidden" id="Article">
+  <input type="hidden" id="Barcode">
+  <input type="hidden" id="SubmissionMonth">
+  <input type="hidden" id="Week">
+
+  Action:
+  <select id="ActionTaken">
+    <option value="RTC Price Change">RTC Price Change</option>
+    <option value="Store Transfer">Store Transfer</option>
+    <option value="Monitor">Monitor</option>
+  </select>
+  <br><br>
+
+  Target Qty:
+  <input type="number" id="TargetQty"><br><br>
+
+  Comments:
+  <textarea id="Comments"></textarea><br><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+["StoreCode","Store","Article","Barcode","SubmissionMonth","Week"]
+  .forEach(id => {
+    document.getElementById(id).value = params.get(id);
+  });
+
+document.getElementById("actionForm").onsubmit = async e => {
+  e.preventDefault();
+
+  const payload = {
+    StoreCode: StoreCode.value,
+    Store: Store.value,
+    Article: Article.value,
+    Barcode: Barcode.value,
+    SubmissionMonth: SubmissionMonth.value,
+    Week: Week.value,
+    ActionTaken: ActionTaken.value,
+    TargetQty: TargetQty.value,
+    Comments: Comments.value,
+    UserEmail: "buyer@gala.com"
+  };
+
+  await fetch("https://script.google.com/macros/s/AKfycbwvVf-58swPQAQH9VRsCa-S1nGyBL9WHFd6MjxPfTaRQ3AlAzCSPYynadfZVe8tVqgW-w/exec", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+
+  alert("Action saved successfully");
+};
+</script>
+
+</body>
+</html>
