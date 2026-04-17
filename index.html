@@ -2,35 +2,145 @@
 <html>
 <head>
   <title>Buyer Action</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .field {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input, select, textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #6200ea;
+      box-shadow: 0 0 0 2px rgba(98,0,234,0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      background: #6200ea;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #4b00b5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+  </style>
 </head>
+
 <body>
 
-<h2>Buyer Action</h2>
+<div class="container">
+  <h2>Buyer Action</h2>
 
-<form id="actionForm">
-  <input type="hidden" id="StoreCode">
-  <input type="hidden" id="Store">
-  <input type="hidden" id="Article">
-  <input type="hidden" id="Barcode">
-  <input type="hidden" id="SubmissionMonth">
-  <input type="hidden" id="Week">
+  <form id="actionForm">
 
-  Action:
-  <select id="ActionTaken">
-    <option value="RTC Price Change">RTC Price Change</option>
-    <option value="Store Transfer">Store Transfer</option>
-    <option value="Monitor">Monitor</option>
-  </select>
-  <br><br>
+    <!-- Visible Fields (Previously Hidden) -->
+    <div class="grid">
+      <div class="field">
+        <label>Store Code</label>
+        <input type="text" id="StoreCode" readonly>
+      </div>
 
-  Target Qty:
-  <input type="number" id="TargetQty"><br><br>
+      <div class="field">
+        <label>Store</label>
+        <input type="text" id="Store" readonly>
+      </div>
 
-  Comments:
-  <textarea id="Comments"></textarea><br><br>
+      <div class="field">
+        <label>Article</label>
+        <input type="text" id="Article" readonly>
+      </div>
 
-  <button type="submit">Submit</button>
-</form>
+      <div class="field">
+        <label>Barcode</label>
+        <input type="text" id="Barcode" readonly>
+      </div>
+
+      <div class="field">
+        <label>Submission Month</label>
+        <input type="text" id="SubmissionMonth" readonly>
+      </div>
+
+      <div class="field">
+        <label>Week</label>
+        <input type="text" id="Week" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Action</label>
+      <select id="ActionTaken">
+        <option value="RTC Price Change">RTC Price Change</option>
+        <option value="Store Transfer">Store Transfer</option>
+        <option value="Monitor">Monitor</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Target Qty</label>
+      <input type="number" id="TargetQty">
+    </div>
+
+    <div class="field">
+      <label>Comments</label>
+      <textarea id="Comments"></textarea>
+    </div>
+
+    <button type="submit">Submit</button>
+
+  </form>
+</div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
